@@ -1,3 +1,4 @@
+import { hashPassword } from '@/lib/auth';
 import { db } from "@/lib/db";
 import { TODO_STATUS } from "@prisma/client";
 
@@ -17,7 +18,7 @@ async function main() {
       email: "user@email.com",
       firstName: "User",
       lastName: "Person",
-      password: "password",
+      password: await hashPassword("password"),
       places: {
         create: new Array(5).fill(1).map((_, i) => ({
           name: `Place ${i}`,
@@ -37,6 +38,7 @@ async function main() {
             name: `Todo ${i}`,
             ownerId: user.id,
             placeId: place.id,
+            description: `Everything that describes Todo ${i}`,
             status: getRandomTodoStatus(),
           };
         }),
