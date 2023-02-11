@@ -24,6 +24,8 @@ export const validateJWT = async (jwt) => {
     jwt,
     new TextEncoder().encode(process.env.JWT_SECRET)
   );
+
+  return payload.payload as any;
 }
 
 export const getUserFromCookie = async (cookies)=> {
