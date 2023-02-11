@@ -9,3 +9,55 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email     String
+  firstName String
+  lastName  String
+  password  String
+  places    Place[]
+  todos      Todo[]
+}
+
+model Place {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name    String
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  deleted Boolean @default(false)
+  todos   Todo[]
+
+  @@unique([ownerId, name])
+  @@index([ownerId, id])
+}
+
+enum TODO_STATUS {
+  NOT_COMPLETED
+  COMPLETED
+}
+
+model Todo {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  status TODO_STATUS @default(NOT_COMPLETED)
+  name   String
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+  placeId String
+  place   Place  @relation(fields: [placeId], references: [id])
+
+  deleted Boolean @default(false)
+  
+  @@index(ownerId)
+}
