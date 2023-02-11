@@ -15,7 +15,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  email     String
+  email     String @unique
   firstName String
   lastName  String
   password  String
@@ -57,6 +57,7 @@ model Todo {
   placeId String
   place   Place  @relation(fields: [placeId], references: [id])
 
+  description String?
   deleted Boolean @default(false)
   
   @@index(ownerId)
