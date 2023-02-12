@@ -26,3 +26,12 @@ export const register = (user) => {
 export const signin = (user) => {
   return fetcher({url: '/api/signin', method: 'post', body: user})
 }
+
+export const createNewPlace = async (name) => {
+  return fetcher({
+    url: '/api/place',
+    method: 'POST',
+    body: {name},
+    json: true
+  })
+}

@@ -1,6 +1,7 @@
 import { delay } from "@/lib/async";
 import Greeting from "@/components/Greeting";
 import GreetingsSkeleton from "@/components/GreetingsSkeleton";
+import NewPlace from "@/components/NewPlace";
 import PlaceCard from "@/components/PlaceCard";
 import TodoCard from "@/components/TodoCard";
 import { getUserFromCookie } from "@/lib/auth";
@@ -44,7 +45,9 @@ export default async function Page() {
               </Link>
             </div>
           ))}
-          <div className="w-1/3 p-3">{/* new project here */}</div>
+          <div className="w-1/3 p-3">
+            <NewPlace />
+          </div>
         </div>
         <div className="mt-6 flex-2 grow w-full flex">
           <div className="w-full">
